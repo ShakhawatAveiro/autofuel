@@ -1,9 +1,20 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { getStations } from '@/app/actions';
 import { MapPin } from 'lucide-react';
 import MapWrapper from '@/components/MapWrapper';
 
-export default async function MapPage() {
-  const stations = await getStations();
+export default function MapPage() {
+  const [stations, setStations] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchStations = async () => {
+      const data = await getStations();
+      setStations(data);
+    };
+    fetchStations();
+  }, []);
 
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
@@ -18,7 +29,13 @@ export default async function MapPage() {
       </div>
       
       <div className="bg-card p-2 rounded-2xl shadow-xl ring-1 ring-border">
-        <MapWrapper stations={stations} />
+        {stations.length > 0 ? (
+          <MapWrapper stations={stations} />
+        ) : (
+          <div className="h-[500px] w-full bg-card rounded-xl border border-border animate-pulse flex items-center justify-center">
+            Loading Map...
+          </div>
+        )}
       </div>
     </div>
   );

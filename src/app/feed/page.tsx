@@ -1,11 +1,30 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { getFuelLogs } from '@/app/actions';
 import { Activity, Droplet, Clock, Car } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
-export const revalidate = 0; // Disable caching for real-time feel
+export default function FeedPage() {
+  const [logs, setLogs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default async function FeedPage() {
-  const logs = await getFuelLogs();
+  useEffect(() => {
+    const fetchLogs = async () => {
+      const data = await getFuelLogs();
+      setLogs(data);
+      setLoading(false);
+    };
+    fetchLogs();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-24 text-zinc-400 animate-pulse text-lg">
+        Loading feed logs...
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-500 max-w-3xl mx-auto w-full">

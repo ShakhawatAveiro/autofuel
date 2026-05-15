@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { Station } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { Navigation2 } from 'lucide-react';
 
@@ -32,7 +31,7 @@ function RecenterAutomatically({ lat, lng }: { lat: number; lng: number }) {
   return null;
 }
 
-export default function Map({ stations }: { stations: Station[] }) {
+export default function Map({ stations }: { stations: any[] }) {
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const router = useRouter();
 
