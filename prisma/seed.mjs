@@ -5,27 +5,36 @@ const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Seeding database...');
+  console.log('Clearing existing data & seeding database with Dhaka locations...');
   
-  // Create some mock stations
+  // Clean existing logs and stations
+  await prisma.fuelLog.deleteMany();
+  await prisma.station.deleteMany();
+  
   const stations = [
     {
-      name: 'EcoFuel City Center',
-      latitude: 51.505, // London mock
-      longitude: -0.09,
-      address: '123 Main St, Central London',
+      name: 'AutoFuel Banani',
+      latitude: 23.7937,
+      longitude: 90.4066,
+      address: 'Road 11, Banani, Dhaka',
     },
     {
-      name: 'Green Energy West',
-      latitude: 51.51,
-      longitude: -0.1,
-      address: '45 West Rd, London',
+      name: 'AutoFuel Dhanmondi',
+      latitude: 23.7461,
+      longitude: 90.3742,
+      address: 'Satmasjid Road, Dhanmondi, Dhaka',
     },
     {
-      name: 'Auto Fuel East',
-      latitude: 51.5,
-      longitude: -0.08,
-      address: '88 East Blvd, London',
+      name: 'AutoFuel Motijheel',
+      latitude: 23.7330,
+      longitude: 90.4172,
+      address: 'Motijheel C/A, Dhaka',
+    },
+    {
+      name: 'AutoFuel Uttara',
+      latitude: 23.8759,
+      longitude: 90.3795,
+      address: 'Sector 3, Uttara, Dhaka',
     }
   ];
 

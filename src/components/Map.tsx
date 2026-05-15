@@ -43,12 +43,12 @@ export default function Map({ stations }: { stations: Station[] }) {
           setUserLocation([position.coords.latitude, position.coords.longitude]);
         },
         () => {
-          // Fallback to London if geolocation is denied
-          setUserLocation([51.505, -0.09]);
+          // Fallback to Dhaka if geolocation is denied
+          setUserLocation([23.8103, 90.4125]);
         }
       );
     } else {
-      setUserLocation([51.505, -0.09]);
+      setUserLocation([23.8103, 90.4125]);
     }
   }, []);
 
